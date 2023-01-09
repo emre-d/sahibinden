@@ -1,0 +1,141 @@
+{%  include 'main.html' %}
+{% include 'navbar.html' %}
+{% block content %} 
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+    }
+    form{
+        display:flex; 
+    }   
+    form *{
+      margin-left:15px;
+    }
+    table {
+  grid-column: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  text-align: left;
+}
+
+thead {
+  background-color: #f3f3f3;
+  border-radius: 8px 8px 0px 0px;
+}
+
+thead > tr {
+  border-radius: 8px 8px 0px 0px;
+  font-weight: bold;
+  color: black;
+}
+
+tr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px;
+  border: 1px solid #e1e1e1;
+  margin-top: -1px;
+  color: #535353;
+}
+
+tbody tr:hover {
+  background-color: #f6f6f6;
+}
+
+.first {
+  width: 32px;
+}
+
+.second {
+  min-width: 18%;
+  align-items: left;
+}
+
+.third {
+  width: 24%;
+}
+
+.fourth {
+  width: 120px;
+}
+
+.fifth {
+  width: 60px;
+  text-align: right;
+}
+
+.sixth {
+  width: 32px;
+}
+</style>
+  <!--{% for user in user %}
+    <a href="{% url 'check' user.id %}">{{user.email}}</a>
+    {% endfor %} -->
+
+
+
+<form action="" method="get">
+    {{filter.form}}
+    <input type="submit" value="Ara">
+    <button class="clear"><a  href="{% url 'home' %}">Clear Filter</a></button>
+</form>
+{% for ilan in filter.qs %}
+<table>
+  
+    <thead>
+      <tr>
+        <th class="second">Ilan adı</th>
+        <th class="third">Şehir</th>
+        <th class="third"></th>
+        <th class="third">Tip</th>
+        <th class="fourth">Boyut</th>
+        <th class="fifth">Metrekare</th>
+        <th class="fifth">Fiyat</th>
+        <th class="fifth"></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+        <tr>
+        
+        <td class="second">{{ilan.name|title}}</td>
+        <td class="third">{{ilan.sehir|title}}</td>
+        {% if ilan.image %}
+        <td class="third"><img src="{{ilan.image.url}}" height="150"></td>
+        {% else %}
+        <td class="third">Resim yok</td>
+        {% endif %}
+        <td class="third">{{ilan.tip}}</td>
+        <td class="fourth">{{ilan.boyut}}</td>
+        <td class="fifth">{{ilan.price}}</td>
+        <td class="fifth">{{ilan.price}}</td>
+        <td class="fifth"><a href="{% url 'ilan' ilan.id %}">İncele</a></td>
+      </tr>
+    </tbody>
+  
+  </table>
+{% endfor %}
+<script>
+    $("#id_price_0").attr("placeholder", "Aradığınız en düşük fiyatı giriniz").blur();
+    $("#id_price_1").attr("placeholder", "Aradığınız en yüksek fiyatı giriniz").blur();
+    $("#id_name").attr("placeholder", "İlan adıyla aratın").blur();
+    $("#id_metrekare_0").attr("placeholder", "Aradığınız en düşük metrekareyi giriniz").blur();
+    $("#id_metrekare_1").attr("placeholder", "Aradığınız en yüksek metrekareyi giriniz").blur();
+    var menuButton = document.querySelector(".menu-button");
+
+  menuButton.addEventListener("click", function(event) {
+   event.preventDefault();
+   var parent = document.querySelector(".menu-container");
+   if (parent.classList.contains("open")) {
+     parent.classList.remove("open");
+   } else {
+     parent.classList.add("open");
+   }
+});
+
+</script>
+{% endblock content %}

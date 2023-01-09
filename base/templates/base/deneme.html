@@ -1,0 +1,25 @@
+<form action="" method="post">
+    {% csrf_token %}
+    <select name="dropdown">
+        <option selected="selected" disabled>Objects on page:</option>
+        {% for option in option %}
+        <option value="{{option.address}}">{{option.address}}</option>
+        {% endfor %}
+    </select>
+    <select name="dropdown1">
+        <option selected="selected" disabled>Objects on page:</option>
+        {% for option2 in option2 %}
+        <option value="{{option2.sehir__sehir}}">{{option2.sehir__sehir}}</option>
+        {% endfor %}
+    </select>
+    <select name="dropdown2">
+        <option selected="selected" disabled>Objects on page:</option>
+        {% for option in option1 %}
+        <option value="{{option.sokak}}">{{option.sokak}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="ara">
+</form>
+{% for ilan in ilan %}
+<a href="{% url 'ilan' ilan.id %}">{{ilan}}</a>
+{% endfor %}
